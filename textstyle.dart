@@ -11,11 +11,13 @@ class MyApp extends StatelessWidget{
                        home:Scaffold
                          (
                            appBar:AppBar(title: Text("العنوان")),
-                           body:Text("djemoui badr",style:TextStyle(
+                           body:const Text("djemoui badr",style:TextStyle(
                                      // color:Color.fromRGBO(20, 200, 240, 20),
                                       color: Colors.greenAccent,
                                      //   color: Color(0xff3400db),
                                         fontSize: 60.2,
+                                    fontWeight: FontWeight.bold,
+                                    backgroundColor: Colors.amberAccent,
 
                            )
                            ),
