@@ -31,15 +31,11 @@ return mydb;
 
 _onCreate(Database db ,int v) async{
     await db.execute('''
-    create table "sales" (
-    id INTEGER AUTOINCREMENT NOT NULL PRIMARY KEY,
-     txt TEXT NOT NULL ,
-     ) 
-   
-     
-     
-     
-                    ''');
+     CREATE TABLE "sales" (
+        "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+        "txt" TEXT NOT NULL 
+                          )
+                      ''');
     //  date TEXT,
     //  nom TEXT,
     //  nbr  INTEGER,

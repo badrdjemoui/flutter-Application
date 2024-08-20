@@ -7,7 +7,7 @@ void main() => runApp( RunMyApp());
 class RunMyApp extends StatelessWidget {
    RunMyApp({super.key});
 
-  SqlDb db = new SqlDb();
+
 
   @override
   Widget build(BuildContext context) {
@@ -37,6 +37,7 @@ class _MyCustomFormState extends State<MyCustomForm> {
   final myController4 = TextEditingController();
   final myController5 = TextEditingController();
        double cost =0.0;
+  SqlDb sqlDb =  SqlDb();
   @override
   void dispose() {
     // Clean up the controller when the widget is disposed.
@@ -123,15 +124,27 @@ class _MyCustomFormState extends State<MyCustomForm> {
                MaterialButton(
 
                               onPressed:()
-                                     {
+                                    async {
 cost = double.parse(myController4.text)*double.parse(myController5.text);
+//***************insert data************************
+                                     String sql= "INSERT INTO "+"'sales' "+"('txt')"+" VALUES "+"('"+cost.toString()+"')";
+       int response = await sqlDb.insertData(sql);
+       print('excuted badr '+response.toString());
+
+
+
+
+
+
+
+
                              showDialog(
                                               context: context,
                                              builder: (context) {
                                                          return AlertDialog(
                        // Retrieve the text that user has entered by using the
                        // TextEditingController.
-                                                            content: Text(cost.toString()),
+                                                            content: Text(cost.toString()+"  query=   "+sql+"   response ="),
                                                                      );
                                      },
                              );
