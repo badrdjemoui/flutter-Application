@@ -1,4 +1,4 @@
-import 'dart:ui';
+//import 'dart:ui';
 
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
@@ -18,7 +18,7 @@ class SqlDb {
   initialDb() async {
 String dbpath = await getDatabasesPath();
 String path =join(dbpath,'checken.db');
-Database mydb =await openDatabase(path,onCreate:_onCreate,version: 1,onUpgrade: _onUpgrade);
+Database mydb =await openDatabase(path,onCreate:_onCreate,version: 2,onUpgrade: _onUpgrade);
 return mydb;
 }
 
@@ -30,21 +30,45 @@ return mydb;
   }
 
 _onCreate(Database db ,int v) async{
+  print('create db and table');
     await db.execute('''
      CREATE TABLE "sales" (
         "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-        "txt" TEXT NOT NULL 
-                          )
+        "nom" TEXT NOT NULL ,
+        "date" TEXT NOT NULL ,
+        "nbr"  INTEGER  ,
+        "poid" real NOT NULL ,
+        "onekg" real NOT NULL ,
+        "some" real,
+        "vers" real
+                        )
                       ''');
-    //  date TEXT,
-    //  nom TEXT,
-    //  nbr  INTEGER,
-    //  poid real,
-    //  unkg real,
-    //   versem real,
-    //   reste real,
+  await db.execute('''
+     CREATE TABLE "purchases" (
+        "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+        "nom" TEXT NOT NULL ,
+        "date" TEXT NOT NULL ,
+        "nbr"  INTEGER  ,
+        "onekg" real NOT NULL ,
+        "poid" real NOT NULL ,
+        "some" real,
+        "vers" real
+                        )
+                      ''');
+  await db.execute('''
+     CREATE TABLE "checkenaltar" (
+        "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+        "breeder" TEXT NOT NULL ,
+        "nomaltar" TEXT NOT NULL ,
+        "date" TEXT NOT NULL ,
+        "nbr"  INTEGER  ,
+        "unityprice" real NOT NULL ,
+        "some" real,
+        "vers" real
+                        )
+                      ''');
 
-    print('create db and table');
+
 
 }
 readData(String sql) async {
@@ -66,6 +90,11 @@ readData(String sql) async {
     Database? mydb = await db;
     int response = await mydb!.rawDelete(sql);
     return response;
+  }
+  mydeletedatabase() async{
+    String databasepath = await getDatabasesPath();
+    String path =join(databasepath,'checken.db');
+    await deleteDatabase(path);
   }
 
 }

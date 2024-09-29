@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
+import 'listsales.dart';
 import 'sqldb.dart';
+import 'sales.dart';
+import 'purchases.dart';
 
 
-void main() => runApp( RunMyApp());
+void main() => runApp( CheckenRun());
 
-class RunMyApp extends StatelessWidget {
-   RunMyApp({super.key});
+class CheckenRun extends StatelessWidget {
+  CheckenRun({super.key});
 
 
 
@@ -25,148 +28,108 @@ class MyCustomForm extends StatefulWidget {
   const MyCustomForm({super.key});
 
   @override
-  State<MyCustomForm> createState() => _MyCustomFormState();
+  _MyCustomForState createState() => _MyCustomForState();
 }
 
 // Define a corresponding State class. This class holds the data related to the Form.
-class _MyCustomFormState extends State<MyCustomForm> {
+class _MyCustomForState extends State<MyCustomForm> {
   // Create a text controller and use it to retrieve the current value of the TextField.
   final myController1 = TextEditingController();
   final myController2 = TextEditingController();
-  final myController3 = TextEditingController();
-  final myController4 = TextEditingController();
-  final myController5 = TextEditingController();
-       double cost =0.0;
+
+  // double cost =0.0;
+  //String sale="";
   SqlDb sqlDb =  SqlDb();
   @override
   void dispose() {
     // Clean up the controller when the widget is disposed.
     myController1.dispose();
     myController2.dispose();
-    myController3.dispose();
-    myController4.dispose();
-    myController4.dispose();
+
+
     super.dispose();
   }
+  String dropdownvalue = 'مينو';
+
+  // List of items in our dropdown menu
+  var items = [
+    'مينو',
+    'سليم',
+
+  ];
+
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        appBar:
+        AppBar(title: const Center(
+            child: Text(" مينو للحوم البيضاء", style: TextStyle(
+              // color:Color.fromRGBO(20, 200, 240, 20),
+                color: Colors.blueAccent,
+                //   color: Color(0xff3400db),
+                fontSize: 22.2,
+                fontWeight: FontWeight.bold,
+                backgroundColor: Colors.white60)
+            )
+        )
+        ),
+        body:
+    Center(
+    child: SingleChildScrollView(child:
+        Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              /******************************************************************/
 
-                           appBar:
-                               AppBar(title: const Center(
-                                 child: Text(" الدجاج المذبوح",style:TextStyle(
-                                   // color:Color.fromRGBO(20, 200, 240, 20),
-                                    color: Colors.blueAccent,
-                                       //   color: Color(0xff3400db),
-                                   fontSize: 22.2,
-                                   fontWeight: FontWeight.bold,
-                                     backgroundColor: Colors.white60),
-                                        ))),
-                           body:
-                           /*const Text("djemoui badr",style:TextStyle(
-                                     // color:Color.fromRGBO(20, 200, 240, 20),
-                                      color: Colors.greenAccent,
-                                     //   color: Color(0xff3400db),
-                                        fontSize: 60.2,
-                                    fontWeight: FontWeight.bold,
-                                    backgroundColor: Colors.amberAccent,
+              ElevatedButton(
+                child: Text(' المبيعات', style: TextStyle(
+                  // color:Color.fromRGBO(20, 200, 240, 20),
+                    color: Colors.blueAccent,
+                    //   color: Color(0xff3400db),
+                    fontSize: 22.2,
+                    fontWeight: FontWeight.bold,
+                    backgroundColor: Colors.white60)),
+                onPressed: () {
 
-                                                                        )
-                                         ),
-    */
-  Column(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-             children: <Widget>[
+    Navigator.push(
+    context,
+    MaterialPageRoute(builder: (context) =>  Sales()),
+    );
 
-               TextFormField(
-                   controller: myController1,
-                   decoration: const InputDecoration(
-                     border: UnderlineInputBorder(),
-                     labelText: ' اسم الزبون ',
-                   )
-               ),
+                },
+              ),
 
-               TextFormField(
-                   controller: myController2,
-                   decoration: const InputDecoration(
-                     border: UnderlineInputBorder(),
-                     labelText: ' التاريخ ',
-                   )
-               ),
 
-   TextFormField(
-       controller: myController3,
-   keyboardType: TextInputType.number,
-         decoration: const InputDecoration(
-           border: UnderlineInputBorder(),
-            labelText: ' العدد ',
+              /******************************************************************/
 
-           )
-         ),
+              /******************************************************************/
 
-    TextFormField(
-        controller: myController4,
-        keyboardType: TextInputType.number,
-    decoration: const InputDecoration(
-    border: UnderlineInputBorder(),
-    labelText: 'الوزن الكلي',
+              ElevatedButton(
+                child: Text(' المشتريات', style: TextStyle(
+                  // color:Color.fromRGBO(20, 200, 240, 20),
+                    color: Colors.blueAccent,
+                    //   color: Color(0xff3400db),
+                    fontSize: 22.2,
+                    fontWeight: FontWeight.bold,
+                    backgroundColor: Colors.white60)),
+                onPressed: () {
+
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => Purchases()),
+                  );
+
+                },
+              ),
+
+
+              /******************************************************************/
+            ]
+        )
     )
-    ),
-    TextFormField(
-        controller: myController5,
-        keyboardType: TextInputType.number,
-    decoration: const InputDecoration(
-    border: UnderlineInputBorder(),
-    labelText: 'وزن الكلغ ',
     )
-    ),
-               MaterialButton(
-
-                              onPressed:()
-                                    async {
-cost = double.parse(myController4.text)*double.parse(myController5.text);
-//***************insert data************************
-                                     String sql= "INSERT INTO "+"'sales' "+"('txt')"+" VALUES "+"('"+cost.toString()+"')";
-       int response = await sqlDb.insertData(sql);
-       print('excuted badr '+response.toString());
-
-
-
-
-
-
-
-
-                             showDialog(
-                                              context: context,
-                                             builder: (context) {
-                                                         return AlertDialog(
-                       // Retrieve the text that user has entered by using the
-                       // TextEditingController.
-                                                            content: Text(cost.toString()+"  query=   "+sql+"   response ="),
-                                                                     );
-                                     },
-                             );
-
-
-               },
-               child: Text('حساب '),
-                 color:Color(0xFFB9F6CA),
-                 height: 30,
-                 textColor:Color(0xFFFF6F00),
-                 //shape: ,
-
-               )
-    ],
-    ) ,
-
-
-                    );
-
+    );
   }
-
-
-
-  
 }
