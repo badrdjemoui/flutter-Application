@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'listsales.dart';
+
 import 'sqldb.dart';
 import 'sales.dart';
 import 'purchases.dart';

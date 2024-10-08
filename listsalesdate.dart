@@ -1,16 +1,16 @@
-import 'dart:js_interop';
+
 
 import 'package:flutter/material.dart';
-import 'sales.dart';
+
 import 'main.dart';
 import 'sqldb.dart';
-import 'main.dart';
+
 
 
 
 
 class ListSalesDate extends StatelessWidget {
-  ListSalesDate({super.key});
+ const  ListSalesDate({super.key});
 
 
 
@@ -20,7 +20,7 @@ class ListSalesDate extends StatelessWidget {
       title: 'Retrieve Text Input',
       theme: ThemeData(primarySwatch: Colors.green),
       debugShowCheckedModeBanner: false,
-      home: MylistpageD(),
+      home: const MylistpageD(),
     );
   }
 }
@@ -73,8 +73,7 @@ class _MylistpageState extends State<MylistpageD> {
                 fontWeight: FontWeight.bold,
                 backgroundColor: Colors.white60),
             ))),
-        body:Container(
-          child:
+        body:
 
           ListView(
             scrollDirection: Axis.vertical,
@@ -141,15 +140,19 @@ class _MylistpageState extends State<MylistpageD> {
                                       d=d+double.parse(snapshot.data![i]['vers'].toString());
                                       return Card(
                                         child: ListTile(
-                                          title:Text("${snapshot.data![i]['id']}"+"  =  "+"${snapshot.data![i]['nom']}"+"  "+"${snapshot.data![i]['date']}"+"  "+"${snapshot.data![i]['nbr']}"+"  "+"${snapshot.data![i]['poid']}"+"  "+"${snapshot.data![i]['onekg']}"+"  "+"${snapshot.data![i]['some']}"+"  "+"${snapshot.data![i]['vers']}",textDirection: TextDirection.rtl) ,
+                                          title:Text("${snapshot.data![i]['id']}"+"  =  "+"${snapshot.data![i]['nom']}"+"  "+"${snapshot.data![i]['date']}"+
+                                              "  "+"${snapshot.data![i]['nbr']}"+"  "+"${snapshot.data![i]['poid']}"+"  "+"${snapshot.data![i]['onekg']}"+
+                                              "  "+"${snapshot.data![i]['some']}"+"  "+"${snapshot.data![i]['vers']}",textDirection: TextDirection.rtl) ,
 
                                         ),
 
                                       );
                                     }
-
+                                           else {return Center(child:CircularProgressIndicator());}
 
                                   }
+
+                                 
                               )
                           );
                         }
@@ -157,6 +160,22 @@ class _MylistpageState extends State<MylistpageD> {
                       }
                   );
 
+ showDialog( context: context,
+                    builder: (context) {
+                      return  Center(child:Container(
+                          color: Colors.white,
+                          child:Text("myController1 ="+myController1.text
+                          ,textDirection:TextDirection.rtl,style:TextStyle(
+                          fontSize: 18.2,
+                          fontWeight: FontWeight.normal,
+                         color: Colors.black
+                          ),
+                      )
+                      )
+                      );
+
+                    },
+                  );
                 },
               ),
 
@@ -185,7 +204,9 @@ class _MylistpageState extends State<MylistpageD> {
                           fontWeight: FontWeight.normal,
                          color: Colors.black
                           ),
-                      )));
+                      )
+                      )
+                      );
 
                     },
                   );
@@ -215,8 +236,8 @@ class _MylistpageState extends State<MylistpageD> {
             ],
               ),
 
-        )
+       
 
     );
   }
-}
+  }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'listpurch.dart';
-import 'listsales.dart';
+
 import 'sqldb.dart';
 import 'main.dart';
 
