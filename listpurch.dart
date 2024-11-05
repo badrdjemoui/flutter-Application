@@ -8,7 +8,7 @@ import 'sqldb.dart';
 
 
 class ListPurch extends StatelessWidget {
-  ListPurch({super.key});
+  const ListPurch({super.key});
 
 
 
@@ -18,7 +18,7 @@ class ListPurch extends StatelessWidget {
       title: 'Retrieve Text Input',
       theme: ThemeData(primarySwatch: Colors.green),
       debugShowCheckedModeBanner: false,
-      home: Mylistpage(),
+      home: const Mylistpage(),
     );
   }
 }
@@ -66,7 +66,7 @@ class _MylistpageState extends State<Mylistpage> {
               /******************************************************************/
 
               ElevatedButton(
-                child:  Text('الرجوع الى الصفحة الرئيسية',style:TextStyle(
+                child:  const Text('الرجوع الى الصفحة الرئيسية',style:TextStyle(
                     color: Colors.blueAccent,
                     fontSize: 22.2,
                     fontWeight: FontWeight.bold,
@@ -75,7 +75,7 @@ class _MylistpageState extends State<Mylistpage> {
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) =>  CheckenRun()),
+                    MaterialPageRoute(builder: (context) =>  const CheckenRun()),
                   );
                 },
               ),
@@ -90,7 +90,7 @@ class _MylistpageState extends State<Mylistpage> {
                   {
                 if (snapshot.hasData) {
 
-                  return Container(
+                  return SizedBox(
                       height: 400,
                       child:  ListView.builder(
                     scrollDirection: Axis.vertical,
@@ -104,7 +104,7 @@ class _MylistpageState extends State<Mylistpage> {
                         print(d.toString());
                         return Card(
                           child: ListTile(
-                           title:Text("${snapshot.data![i]['id']}"+"  =  "+"${snapshot.data![i]['nom']}"+"  "+"${snapshot.data![i]['date']}"+"  "+"${snapshot.data![i]['nbr']}"+"  "+"${snapshot.data![i]['poid']}"+"  "+"${snapshot.data![i]['onekg']}"+"  "+"${snapshot.data![i]['some']}"+"  "+"${snapshot.data![i]['vers']}",textDirection: TextDirection.rtl) ,
+                           title:Text("${snapshot.data![i]['id']}  =  ${snapshot.data![i]['nom']}  ${snapshot.data![i]['date']}  ${snapshot.data![i]['nbr']}  ${snapshot.data![i]['poid']}  ${snapshot.data![i]['onekg']}  ${snapshot.data![i]['some']}  ${snapshot.data![i]['vers']}",textDirection: TextDirection.rtl) ,
 
                                          ),
                                );
@@ -113,12 +113,12 @@ class _MylistpageState extends State<Mylistpage> {
                   )
                   );
                 }
-                return Center(child:CircularProgressIndicator());
+                return const Center(child:CircularProgressIndicator());
               }
               ),
               /************************************************************/
               ElevatedButton(
-                child:  Text("مجموع دفعات اليوم",style:TextStyle(
+                child:  const Text("مجموع دفعات اليوم",style:TextStyle(
                     color: Colors.blueAccent,
                     fontSize: 22.2,
                     fontWeight: FontWeight.bold,
@@ -130,7 +130,7 @@ class _MylistpageState extends State<Mylistpage> {
                     builder: (context) {
                       return  Center(child:Container(
                           color: Colors.white,
-                          child:Text(" المجمــــوع اليومـــــي ="+d.toString()+" دج ",textDirection:TextDirection.rtl,style:TextStyle(
+                          child:Text(" المجمــــوع اليومـــــي =$d دج ",textDirection:TextDirection.rtl,style:const TextStyle(
                           fontSize: 18.2,
                           fontWeight: FontWeight.normal,
                          color: Colors.black
@@ -146,7 +146,7 @@ class _MylistpageState extends State<Mylistpage> {
 
               /************************************************************/
               ElevatedButton(
-                child:  Text(" حـــذف قاعـــدة البيانــــات",style:TextStyle(
+                child:  const Text(" حـــذف قاعـــدة البيانــــات",style:TextStyle(
                 // color:Color.fromRGBO(20, 200, 240, 20),
                   color: Colors.blueAccent,
                   //   color: Color(0xff3400db),

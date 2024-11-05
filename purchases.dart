@@ -6,7 +6,7 @@ import 'main.dart';
 
 
 class Purchases extends StatelessWidget {
-  Purchases({super.key});
+  const Purchases({super.key});
 
 
 
@@ -16,7 +16,7 @@ class Purchases extends StatelessWidget {
       title: 'Retrieve Text Input',
       theme: ThemeData(primarySwatch: Colors.green),
       debugShowCheckedModeBanner: false,
-      home: MyCustomForPur(),
+      home: const MyCustomForPur(),
     );
   }
 }
@@ -57,6 +57,19 @@ class _MyCustomFormStatPur extends State<MyCustomForPur> {
 
     super.dispose();
   }
+   ///************************initState*********************************** */
+
+ @override
+  void initState() {
+    super.initState();
+     myController2.text="${DateTime.now().subtract(const Duration(days:1)).day}/${DateTime.now().subtract(const Duration(days:1)).month}/${DateTime.now().subtract(const Duration(days:1)).year}";
+     myController8.text='0.0';
+     myController6.text='0.0'; 
+             
+  }
+             
+  
+  ///************************************************************* */
   String dropdownvalue1 = 'لحمودي';
 
   // List of items in our dropdown menu
@@ -68,7 +81,7 @@ class _MyCustomFormStatPur extends State<MyCustomForPur> {
 
   ];
 
-
+///************************************************************************ */
   @override
   Widget build(BuildContext context) {
 
@@ -100,33 +113,20 @@ class _MyCustomFormStatPur extends State<MyCustomForPur> {
                      hintText: ' اسم المربي ',
                    )
                ),
-/************************************/
-      Container(
+///******************  /SizedBox ******************/
+      SizedBox(
         height: 50,
         child:DropdownButton(
-
-                 // Initial Value
                  value: dropdownvalue1,
-
-                 // Down Arrow Icon
                  icon: const Icon(Icons.keyboard_arrow_down),
-
-                 // Array list of items
                  items: items1.map((String items) {
-
-                   myController2.text=DateTime.now().subtract(Duration(days:1)).day.toString()+"/"+DateTime.now().subtract(Duration(days:1)).month.toString()+"/"+DateTime.now().subtract(Duration(days:1)).year.toString();
-                   myController6.text='0.0';
-                   return DropdownMenuItem(
+                      return DropdownMenuItem(
                      value: items,
                      child: Text(items),
                    );
                  }).toList(),
-
                  onChanged: (String? newValue) {
-
-
                       setState(() {
-
                     dropdownvalue1 = newValue!;
                      myController1.text=dropdownvalue1.toString();
                    });
@@ -135,11 +135,11 @@ class _MyCustomFormStatPur extends State<MyCustomForPur> {
                ),
       ),
 
-/************************************/
+///*****************TextFormField*******************/
       TextFormField(
         controller: myController2,
         textAlign: TextAlign.center,
-        decoration: InputDecoration(
+        decoration: const InputDecoration(
           border: UnderlineInputBorder(),
           hintText: ' التاريخ ',
         ),
@@ -155,7 +155,7 @@ class _MyCustomFormStatPur extends State<MyCustomForPur> {
 
            )
          ),
-     /****************************************/
+     ///****************************************/
     TextFormField(
         controller: myController4,
         textAlign: TextAlign.center,
@@ -165,7 +165,7 @@ class _MyCustomFormStatPur extends State<MyCustomForPur> {
       hintText: 'سعر الكلغ',
     )
     ),
-               /****************************************/
+ ///****************************************/
                TextFormField(
         controller: myController5,
                    textAlign: TextAlign.center,
@@ -196,9 +196,8 @@ class _MyCustomFormStatPur extends State<MyCustomForPur> {
            hintText: 'دفع',
          )
      ),
-     /****************************************/
-     /****************************************/
-               /**************** /row ************************/
+
+     /**************** /row ************************/
        Row(
         children: <Widget>[
           /**************** /Button ************************/
@@ -210,43 +209,16 @@ class _MyCustomFormStatPur extends State<MyCustomForPur> {
 
 
 
-                print('myController before =  '+
-                      " myController1=  "+
-                    myController1.text
-                    +" myController2=   "+
-                    myController2.text
-                    +"  myController3=  "+
-                    myController3.text
-                    +" myController4=   "+
-                    myController4.text
-                    +" myController5=   "+
-                    myController5.text
-                    +"/ln"
-                );
-       String sql= "INSERT INTO "+"purchases"+"(nom,date,nbr,onekg,poid,some,vers)"+" VALUES "+
-           "('"+myController1.text+"','"+myController2.text+"','"+myController3.text+"','"+myController4.text+"','"+myController5.text+"','"+
-           costpurch.toString()+"','"+myController8.text+"')";
+          
+       String sql= "INSERT INTO purchases(nom,date,nbr,onekg,poid,some,vers) VALUES ('${myController1.text}','${myController2.text}','${myController3.text}','${myController4.text}','${myController5.text}','$costpurch','${myController8.text}')";
 
-                print('sql puchases befor =  '+
-                    sql
+                print('sql puchases befor =  $sql'
                 );
      int response = await sqlDb.insertData(sql);
-                print('sql puchases after  =  '+
-                    sql
+                print('sql puchases after  =  $sql'
                 );
 
-       print('myController after =  '+
-         response.toString()+
-
-           myController1.text
-           +
-           myController2.text
-           +
-           myController3.text
-           +
-           myController4.text
-           +
-           myController5.text
+       print('myController after =  $response${myController1.text}${myController2.text}${myController3.text}${myController4.text}${myController5.text}'
        );
 
 
@@ -256,21 +228,21 @@ class _MyCustomFormStatPur extends State<MyCustomForPur> {
                        return AlertDialog(
                        // Retrieve the text that user has entered by using the
                        // TextEditingController.
-                        content: Text("  purchses =   "+sql),
+                        content: Text("  purchses =   $sql"),
                                          );
                                      },
                              );
                   },
-
-               child: Text('حساب وحفظ'),
-                 color:Color(0xFFB9F6CA),
+                 color:const Color(0xFFB9F6CA),
                  height: 30,
-                 textColor:Color(0xFFFF6F00),
+                 textColor:const Color(0xFFFF6F00),
+
+               child: const Text('حساب وحفظ'),
                  //shape: ,
 
                ),
           /****************** button/ **********************/
-          VerticalDivider(
+          const VerticalDivider(
            // color: Colors.black,
             thickness: 400,
           ),
@@ -284,74 +256,73 @@ class _MyCustomFormStatPur extends State<MyCustomForPur> {
 
              List<Map> response = await sqlDb.readData(sql);
 
-              print('data '+response.toString());
+              print('data $response');
 
               showDialog( context: context,
                 builder: (context) {
                   return AlertDialog(
                     // Retrieve the text that user has entered by using the
                     // TextEditingController.
-                    content: Text("  purchses =   "+response.toString()),
+                    content: Text("  purchses =   $response"),
                   );
                 },
               );
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) =>   ListPurch()),
+                MaterialPageRoute(builder: (context) =>   const ListPurch()),
               );
             },
-
-            child: Text(' عرض جميع المشتريات'),
-            color:Color(0xFFB9F6CA),
+            color:const Color(0xFFB9F6CA),
             height: 30,
-            textColor:Color(0xFFFF6F00),
+            textColor:const Color(0xFFFF6F00),
+
+            child: const Text(' عرض جميع المشتريات'),
             //shape: ,
 
           ),
-          /****************** button/ **********************/
+       
 
 
-          /****************************************/
+///****************************************/
         ],
       ) ,
-      /****************  row/ ************************/
 
-               /**************** /row ************************/
+///****************  /row/ ************************/
                Row(
                  children: <Widget>[
 
-                   /**************** /Button ************************/
+ ///**************** /MaterialButton ************************/
                    MaterialButton(
 
                      onPressed:()
                      async {
 
-                       String sql= "DELETE from 'purchses' WHERE id = "+myController7.text;
+                       String sql= "DELETE from 'purchses' WHERE id = ${myController7.text}";
 
                        List<Map> response = await sqlDb.deleteData(sql);
 
-                       print('data '+response.toString());
+                       print('data $response');
 
                        showDialog( context: context,
                          builder: (context) {
                            return AlertDialog(
                              // Retrieve the text that user has entered by using the
                              // TextEditingController.
-                             content: Text("  purchses =   "+response.toString()),
+                             content: Text("  purchses =   $response"),
                            );
                          },
                        );
                      },
-
-                     child: Text('حذق برقم السجل'),
-                     color:Color(0xFFB9F6CA),
+                     color:const Color(0xFFB9F6CA),
                      height: 30,
-                     textColor:Color(0xFFFF6F00),
+                     textColor:const Color(0xFFFF6F00),
+
+                     child: const Text('حذق برقم السجل'),
                      //shape: ,
 
                    ),
 
-                   /****************** button/ **********************/
+///****************** SizedBox/ **********************/
                     SizedBox(
                      width: 100.0,
                      child:TextFormField(
@@ -366,82 +337,62 @@ class _MyCustomFormStatPur extends State<MyCustomForPur> {
                    ),
 
 
-                   /**************** /Button ************************/
+ ///**************** /MaterialButton ************************/
                    MaterialButton(
 
                      onPressed:()
                      async {
                        double costpusrch = double.parse(myController4.text)*(double.parse(myController5.text)-double.parse(myController6.text));
-                          String sql= "UPDATE 'purchses' SET 'nom' = '"+myController1.text+"',"+"'date' ='"+myController2.text+"',"+"'nbr' ='"+myController3.text+"',"+"'onekg' ='"+myController4.text+"',"+"'poid' ='"+myController5.text+"',"+"'some' ='"+costpusrch.toString()+"'"+" WHERE id = "+myController7.text;
+                          String sql= "UPDATE 'purchses' SET 'nom' = '${myController1.text}','date' ='${myController2.text}','nbr' ='${myController3.text}','onekg' ='${myController4.text}','poid' ='${myController5.text}','some' ='$costpusrch' WHERE id = ${myController7.text}";
 
                        int response = await sqlDb.updateData(sql);
 
-                       print('data '+response.toString());
+                       print('data $response');
 
                        showDialog( context: context,
                          builder: (context) {
                            return AlertDialog(
                              // Retrieve the text that user has entered by using the
                              // TextEditingController.
-                             content: Text("  sql =   "+sql+" response "+response.toString()),
+                             content: Text("  sql =   $sql response $response"),
                            );
                          },
                        );
                      },
-
-                     child: Text('تحيين المعلومات'),
-                     color:Color(0xFFB9F6CA),
+                     color:const Color(0xFFB9F6CA),
                      height: 30,
-                     textColor:Color(0xFFFF6F00),
+                     textColor:const Color(0xFFFF6F00),
                      shape: RoundedRectangleBorder(
                        borderRadius: BorderRadius.circular(
                          32.0,
                        ),
                      ),
-
-                   ),
-
-
-                   /****************************************/
-                 ],
-               ) ,
-     /******************************************************************/
+                     child: const Text('تحيين المعلومات'),
+          ),
+  ///****************************************/
+       ],
+      ) ,
+  ///*********************ElevatedButton*********************************************/
 
      ElevatedButton(
-       child:  Text('الرجوع الى الصفحة الرئيسية'),
+       child:  const Text('الرجوع الى الصفحة الرئيسية'),
        onPressed: () {
          Navigator.push(
              context,
-             MaterialPageRoute(builder: (context) =>  CheckenRun()),
+             MaterialPageRoute(builder: (context) =>  const CheckenRun()),
          );
        },
      ),
 
 
-     /******************************************************************/
+///******************************************************************/
 
 
 
    ],
     ) ,
  ) ,
-  /*
-   ) ,
-
-    ) ,
-    */
-
-
-
-
-
-
                     );
-
-  }
-
-
-
-  
+  }  
 }
 

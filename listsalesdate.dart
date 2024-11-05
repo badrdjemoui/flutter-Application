@@ -1,18 +1,11 @@
-
-
 import 'package:flutter/material.dart';
-
 import 'main.dart';
 import 'sqldb.dart';
 
-
-
-
+///******************************************************************/
 
 class ListSalesDate extends StatelessWidget {
  const  ListSalesDate({super.key});
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +18,9 @@ class ListSalesDate extends StatelessWidget {
   }
 }
 
-// Define a custom Form widget.
+///******************************************************************/
+
+
 class MylistpageD extends StatefulWidget {
   const MylistpageD({super.key});
 
@@ -33,33 +28,86 @@ class MylistpageD extends StatefulWidget {
   State<MylistpageD> createState() => _MylistpageState();
 }
 
-// Define a corresponding State class. This class holds the data related to the Form.
+///******************************************************************/
+
 class _MylistpageState extends State<MylistpageD> {
   double d =0.0;
  SqlDb sqlDb =  SqlDb();
   final myController1 = TextEditingController();
+  Future<List<Map>>? readDatall;
 
   @override
+///******************************************************************/
   void dispose() {
     // Clean up the controller when the widget is disposed.
     myController1.dispose();
 
     super.dispose();
   }
+
+///******************************************************************/
+
+showAlertDialog(BuildContext context) {
+
+  // set up the button
+  Widget okButton = TextButton(
+    child: Text("OK"),
+    onPressed: () async{
+      await sqlDb.mydeletedatabase();
+      showDialog( context: context,
+                    builder: (context) {
+                       return AlertDialog(
+                        content: Text("data base deleted by succes"),
+                                         );
+                                     },
+                             );
+     },
+  );
+
+  // set up the AlertDialog
+  AlertDialog alert = AlertDialog(
+    title: Text("Delete data base"),
+    content: Text("are you sure."),
+    actions: [
+      okButton,
+    ],
+  );
+
+  // show the dialog
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return alert;
+    },
+  );
+}
+
+///************************************************************/
+
   Future<List<Map>> readDatal() async{
 
-    List<Map> response = await sqlDb.readData("SELECT * FROM sales WHERE date LIKE '%"+myController1.toString()+"%'") ;
-    print(response.toString());
-    return response;
-                                     }
 
+String strurl = "SELECT * FROM sales WHERE date like '%${myController1.text}%'";
+
+    List<Map> response = await sqlDb.readData(strurl) ;
+
+
+
+    return response;
+         }
+
+
+
+///******************************************************************/
   @override
   void initState() {
+myController1.text="${DateTime.now().subtract(const Duration(days:1)).day}/${DateTime.now().subtract(const Duration(days:1)).month}/${DateTime.now().subtract(const Duration(days:1)).year}";
+d =0.0;
     super.initState();
-    myController1.text=DateTime.now().subtract(Duration(days:1)).day.toString()+"/"+DateTime.now().subtract(Duration(days:1)).month.toString()+"/"+DateTime.now().subtract(Duration(days:1)).year.toString();
 
+    
   }
-
+///******************************************************************/
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -79,26 +127,21 @@ class _MylistpageState extends State<MylistpageD> {
             scrollDirection: Axis.vertical,
             children: [
 
-              /******************************************************************/
+
+///******************************************************************/
 
               ElevatedButton(
-                child:  Text('الرجوع الى الصفحة الرئيسية'),
+                child:  const Text('الرجوع الى الصفحة الرئيسية'),
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) =>  CheckenRun()),
+                    MaterialPageRoute(builder: (context) =>  const CheckenRun()),
                   );
                 },
               ),
 
-              /****************************************/
-      /************************************************************/
 
-
-
-
-
-      /************************************************************/
+///************************************************************/
               TextFormField(
 
                   controller: myController1,
@@ -109,85 +152,66 @@ class _MylistpageState extends State<MylistpageD> {
                     hintText: 'ادخل التاريخ',
                   )
               ),
-              /****************************************/
-              /******************************************************************/
-
-
-              /************************************************************/
+///****************************************/
+              
+          
               ElevatedButton(
-                child:  Text("حسب التاريخ",style:TextStyle(
+                child:  const Text("حسب التاريخ",style:TextStyle(
                     color: Colors.blueAccent,
                     fontSize: 22.2,
                     fontWeight: FontWeight.bold,
                     backgroundColor: Colors.white60),
                 ),
-                onPressed: () async{
-                  FutureBuilder(
+                onPressed: () {
+                d =0.0;                
+              setState(() {
 
-                      future: readDatal(),
-                      builder:
-                          (BuildContext context,AsyncSnapshot<List<Map>> snapshot)
+                readDatall=readDatal(); 
+              
+                            }  ); },
+          ),
+          
+///************************************************************/
+                  FutureBuilder(
+                      future: readDatall,
+                    
+                      builder: (BuildContext context,AsyncSnapshot<List<Map>> snapshot)
                       {
-                        if (snapshot.hasData) {
-                          return Container(
+                         if (snapshot.hasData) {
+                              return SizedBox(
                               height: 400,
                               child:  ListView.builder(
                                   scrollDirection: Axis.vertical,
                                   itemCount: snapshot.data!.length,
                                   // shrinkWrap: true,
                                   itemBuilder: (context,i){
-                                    if (snapshot.data![i]['date']==myController1.toString() ){
-                                      d=d+double.parse(snapshot.data![i]['vers'].toString());
+                                          d=d+double.parse(snapshot.data![i]['vers'].toString());
                                       return Card(
                                         child: ListTile(
-                                          title:Text("${snapshot.data![i]['id']}"+"  =  "+"${snapshot.data![i]['nom']}"+"  "+"${snapshot.data![i]['date']}"+
-                                              "  "+"${snapshot.data![i]['nbr']}"+"  "+"${snapshot.data![i]['poid']}"+"  "+"${snapshot.data![i]['onekg']}"+
-                                              "  "+"${snapshot.data![i]['some']}"+"  "+"${snapshot.data![i]['vers']}",textDirection: TextDirection.rtl) ,
+                                          title:Text("${snapshot.data![i]['id']}  =  ${snapshot.data![i]['nom']}  ${snapshot.data![i]['date']}  ${snapshot.data![i]['nbr']}  ${snapshot.data![i]['poid']}  ${snapshot.data![i]['onekg']}  ${snapshot.data![i]['some']}  ${snapshot.data![i]['vers']}",textDirection: TextDirection.rtl) ,
 
                                         ),
 
                                       );
                                     }
-                                           else {return Center(child:CircularProgressIndicator());}
+                                        //   else { return const Center(child:CircularProgressIndicator()); }
 
-                                  }
-
+                                
                                  
                               )
                           );
                         }
-                        return Center(child:CircularProgressIndicator());
+                        return const Center(child:CircularProgressIndicator());
                       }
-                  );
+                  ),
+    
+            
 
- showDialog( context: context,
-                    builder: (context) {
-                      return  Center(child:Container(
-                          color: Colors.white,
-                          child:Text("myController1 ="+myController1.text
-                          ,textDirection:TextDirection.rtl,style:TextStyle(
-                          fontSize: 18.2,
-                          fontWeight: FontWeight.normal,
-                         color: Colors.black
-                          ),
-                      )
-                      )
-                      );
+ 
 
-                    },
-                  );
-                },
-              ),
-
-
-              /************************************************************/
-
-
-
-
-      /************************************************************/
+///************************************************************/
               ElevatedButton(
-                child:  Text("مجموع دفعات اليوم",style:TextStyle(
+                child: const Text("مجموع دفعات اليوم",style:TextStyle(
                     color: Colors.blueAccent,
                     fontSize: 22.2,
                     fontWeight: FontWeight.bold,
@@ -199,7 +223,7 @@ class _MylistpageState extends State<MylistpageD> {
                     builder: (context) {
                       return  Center(child:Container(
                           color: Colors.white,
-                          child:Text(" المجمــــوع اليومـــــي ="+d.toString()+" دج ",textDirection:TextDirection.rtl,style:TextStyle(
+                          child: Text(" المجمــــوع اليومـــــي =$d دج ",textDirection:TextDirection.rtl,style:const TextStyle(
                           fontSize: 18.2,
                           fontWeight: FontWeight.normal,
                          color: Colors.black
@@ -215,9 +239,10 @@ class _MylistpageState extends State<MylistpageD> {
               ),
 
 
-              /************************************************************/
+///************************************************************/
+
               ElevatedButton(
-                child:  Text(" حـــذف قاعـــدة البيانــــات",style:TextStyle(
+                child: const Text(" حـــذف قاعـــدة البيانــــات",style:TextStyle(
                 // color:Color.fromRGBO(20, 200, 240, 20),
                   color: Colors.blueAccent,
                   //   color: Color(0xff3400db),
@@ -225,8 +250,9 @@ class _MylistpageState extends State<MylistpageD> {
                   fontWeight: FontWeight.bold,
                   backgroundColor: Colors.white60),
               ),
-                onPressed: () async{
-                  await sqlDb.mydeletedatabase();
+                onPressed: ()  {
+                  showAlertDialog(context);
+                  
 
                 },
               ),

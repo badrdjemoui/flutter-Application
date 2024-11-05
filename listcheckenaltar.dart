@@ -1,9 +1,16 @@
 import 'package:flutter/material.dart';
+
 import 'main.dart';
 import 'sqldb.dart';
 
-class ListPurch extends StatelessWidget {
-  const ListPurch({super.key});
+
+
+
+
+class Listcheckenaltar extends StatelessWidget {
+  const Listcheckenaltar({super.key});
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -11,26 +18,26 @@ class ListPurch extends StatelessWidget {
       title: 'Retrieve Text Input',
       theme: ThemeData(primarySwatch: Colors.green),
       debugShowCheckedModeBanner: false,
-      home: const Mylistpage(),
+      home: const Mylistcheckenaltar(),
     );
   }
 }
 
 // Define a custom Form widget.
-class Mylistpage extends StatefulWidget {
-  const Mylistpage({super.key});
+class Mylistcheckenaltar extends StatefulWidget {
+  const Mylistcheckenaltar({super.key});
 
   @override
-  State<Mylistpage> createState() => _MylistpageState();
+  State<Mylistcheckenaltar> createState() => _Mylistcheckenaltar();
 }
 
 // Define a corresponding State class. This class holds the data related to the Form.
-class _MylistpageState extends State<Mylistpage> {
+class _Mylistcheckenaltar extends State<Mylistcheckenaltar> {
   double d =0.0;
  SqlDb sqlDb =  SqlDb();
 
   Future<List<Map>> readDatal() async{
-    List<Map> response = await sqlDb.readData("SELECT * FROM purchases") ;
+    List<Map> response = await sqlDb.readData("SELECT * FROM checkenaltar") ;
     return response;
                                      }
 
@@ -38,18 +45,23 @@ class _MylistpageState extends State<Mylistpage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return 
+    ///****************************Scaffold************************* */
+    Scaffold(
         appBar:
         AppBar(title: const Center(
             child: Text(" الدجاج المذبوح",style:TextStyle(
               // color:Color.fromRGBO(20, 200, 240, 20),
-                color: Color.fromARGB(255, 202, 231, 72),
+                color: Colors.blueAccent,
                 //   color: Color(0xff3400db),
                 fontSize: 22.2,
                 fontWeight: FontWeight.bold,
                 backgroundColor: Colors.white60),
             ))),
-        body:Container(
+        body:
+        
+         ///****************************Container************************* */
+        Container(
           child:
 
           ListView(
@@ -90,14 +102,16 @@ class _MylistpageState extends State<Mylistpage> {
                       itemCount: snapshot.data!.length,
                      // shrinkWrap: true,
                       itemBuilder: (context,i){
-                        print(snapshot.data![i]['vers']);
-                          d=d+double.parse(snapshot.data![i]['vers'].toString());
+                        print("length ==============================");
+                       
+
+                           d=d+double.parse(snapshot.data![i]['some'].toString());
 
 
                         print(d.toString());
                         return Card(
                           child: ListTile(
-                           title:Text("${snapshot.data![i]['id']}  =  ${snapshot.data![i]['nom']}  ${snapshot.data![i]['date']}  ${snapshot.data![i]['nbr']}  ${snapshot.data![i]['poid']}  ${snapshot.data![i]['onekg']}  ${snapshot.data![i]['some']}  ${snapshot.data![i]['vers']}",textDirection: TextDirection.rtl) ,
+title:Text("${snapshot.data![i]['id']}  =  ${snapshot.data![i]['breeder']}  ${snapshot.data![i]['nomaltar']}  ${snapshot.data![i]['date']}  ${snapshot.data![i]['nbr']}  ${snapshot.data![i]['unityprice']}  ${snapshot.data![i]['some']}  ${snapshot.data![i]['vers']}",textDirection: TextDirection.rtl) ,
 
                                          ),
                                );

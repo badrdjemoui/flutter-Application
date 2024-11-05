@@ -1,12 +1,13 @@
-import 'package:chicken/listsalesdate.dart';
+import 'package:chicken/listcheckenaltar.dart';
 import 'package:flutter/material.dart';
+
+
 import 'sqldb.dart';
 import 'main.dart';
-import 'listsales.dart';
 
 
-class Sales extends StatelessWidget {
-  const Sales({super.key});
+class Checkenaltar extends StatelessWidget {
+  const Checkenaltar({super.key});
 
 
 
@@ -16,22 +17,22 @@ class Sales extends StatelessWidget {
       title: 'Retrieve Text Input',
       theme: ThemeData(primarySwatch: Colors.green),
       debugShowCheckedModeBanner: false,
-      home: const MyCustomFor(),
+      home: const MyCustomCheckenaltar(),
     );
   }
 }
 
-// Define a custom Form widget.
-class MyCustomFor extends StatefulWidget {
-  const MyCustomFor({super.key});
+
+class MyCustomCheckenaltar extends StatefulWidget {
+  const MyCustomCheckenaltar({super.key});
 
   @override
-  State<MyCustomFor> createState() => _MyCustomFormStat();
+  State<MyCustomCheckenaltar> createState() => _MyCustomCheckenaltar();
 }
 
-// Define a corresponding State class. This class holds the data related to the Form.
-class _MyCustomFormStat extends State<MyCustomFor> {
-  // Create a text controller and use it to retrieve the current value of the TextField.
+
+class _MyCustomCheckenaltar extends State<MyCustomCheckenaltar> {
+
   final myController1 = TextEditingController();
   final myController2 = TextEditingController();
   final myController3 = TextEditingController();
@@ -40,7 +41,6 @@ class _MyCustomFormStat extends State<MyCustomFor> {
   final myController6 = TextEditingController();
   final myController7 = TextEditingController();
   final myController8 = TextEditingController();
-
 
 
   SqlDb sqlDb =  SqlDb();
@@ -58,34 +58,44 @@ class _MyCustomFormStat extends State<MyCustomFor> {
 
     super.dispose();
   }
-   ///************************initState*********************************** */
+
+ ///************************initState*********************************** */
 
  @override
   void initState() {
     super.initState();
-    myController2.text="${DateTime.now().subtract(const Duration(days:1)).day}/${DateTime.now().subtract(const Duration(days:1)).month}/${DateTime.now().subtract(const Duration(days:1)).year}";
-    myController8.text="${DateTime.now().subtract(const Duration(days:1)).day}/${DateTime.now().subtract(const Duration(days:1)).month}/${DateTime.now().subtract(const Duration(days:1)).year}";
-    myController6.text='0.0';            
+    myController8.text='0.0';
+     myController3.text="${DateTime.now().subtract(const Duration(days:1)).day}/${DateTime.now().subtract(const Duration(days:1)).month}/${DateTime.now().subtract(const Duration(days:1)).year}";
+                 
   }
 
   ///*********************************************************** */
-  String dropdownvalue1 = 'مينو';
+   String dropdownvalue1 = 'مينو';
 
+  // List of items in our dropdown menu
   var items1 = [
     'مينو',
-    'سليم',
-    'غاني',
-    'هاني',
-    'خيرو',
-    'بلال',
-    'حمزة',
-    'الحاج',
-   
+    'سوفي حداد',
+    'لحمودي',
+
 
   ];
 
+///**************
+///*************************************************************************** */
+/// ///*********************************************************** */
+  String dropdownvalue2 = 'رمزي';
+
+  // List of items in our dropdown menu
+  var items2 = [
+    'رمزي',
+    'مذبح 1',
+    'مذبح 2',
 
 
+  ];
+
+///*************************************************************************** */
   @override
   Widget build(BuildContext context) {
 
@@ -102,96 +112,131 @@ class _MyCustomFormStat extends State<MyCustomFor> {
                                      backgroundColor: Colors.white60),
                                         ))),
                            body:
-
-///*****************SingleChildScrollView*******************/
-
+///********************/SingleChildScrollView****************/
  SingleChildScrollView(child:
       Column(
-  crossAxisAlignment: CrossAxisAlignment.center,
-  mainAxisAlignment: MainAxisAlignment.center,
+   crossAxisAlignment: CrossAxisAlignment.start,
    mainAxisSize: MainAxisSize.min,
    children: <Widget>[
-
-///*****************TextFormField*******************/
-
+/************************************/
                TextFormField(
                    controller: myController1,
                    textAlign: TextAlign.center,
                    decoration: const InputDecoration(
-                     hintText: 'اسم الزبون', 
-                     labelText: 'اسم الزبون',               
+                     border: UnderlineInputBorder(),
+                     hintText: ' اسم المربي ',
                    )
                ),
-
-///***************SizedBox*********************/
+/************************************/
       SizedBox(
         height: 50,
-        child:DropdownButton(               
-                 value: dropdownvalue1,              
-                 icon: const Icon(Icons.keyboard_arrow_down),        
+        child:DropdownButton(
+
+                 // Initial Value
+                 value: dropdownvalue1,
+
+                 // Down Arrow Icon
+                 icon: const Icon(Icons.keyboard_arrow_down),
+
+                 // Array list of items
                  items: items1.map((String items) {
-                   return DropdownMenuItem(
+
+                         return DropdownMenuItem(
                      value: items,
                      child: Text(items),
                    );
                  }).toList(),
-                 // After selecting the desired option,it will
-                 // change button value to selected value
+
                  onChanged: (String? newValue) {
-                     setState(() {
+
+
+                      setState(() {
+
                     dropdownvalue1 = newValue!;
-                    myController1.text=dropdownvalue1.toString();
+                     myController1.text=dropdownvalue1.toString();
                    });
                  },
 
                ),
       ),
 
-///************************************/
+
+/************************************/
+               TextFormField(
+                   controller: myController2,
+                   textAlign: TextAlign.center,
+                   decoration: const InputDecoration(
+                     border: UnderlineInputBorder(),
+                     hintText: ' اسم صاحب المذبح ',
+                   )
+               ),
+/************************************/
+      SizedBox(
+        height: 50,
+        child:DropdownButton(
+
+                 // Initial Value
+                 value: dropdownvalue2,
+
+                 // Down Arrow Icon
+                 icon: const Icon(Icons.keyboard_arrow_down),
+
+                 // Array list of items
+                 items: items2.map((String items) {
+
+                      return DropdownMenuItem(
+                     value: items,
+                     child: Text(items),
+                   );
+                 }).toList(),
+
+                 onChanged: (String? newValue) {
+
+
+                      setState(() {
+
+                    dropdownvalue2 = newValue!;
+                     myController2.text=dropdownvalue2.toString();
+                   });
+                 },
+
+               ),
+      ),
+
+/************************************/
       TextFormField(
-        controller: myController2,
+        controller: myController3,
         textAlign: TextAlign.center,
         decoration: const InputDecoration(
           border: UnderlineInputBorder(),
           hintText: ' التاريخ ',
         ),
       ),
-///****************************************/
+     /****************************************/
       TextFormField(
-       controller: myController3,
+       controller: myController4,
           textAlign: TextAlign.center,
    keyboardType: TextInputType.number,
          decoration: const InputDecoration(
            border: UnderlineInputBorder(),
-           labelText: 'العدد',  
-           hintText: ' العدد ',
+           hintText: ' العدد الكلي للدجاج',
 
            )
          ),
-///****************************************/
+     /****************************************/
     TextFormField(
-        controller: myController4,
+        controller: myController5,
         textAlign: TextAlign.center,
         keyboardType: TextInputType.number,
     decoration: const InputDecoration(
     border: UnderlineInputBorder(),
-    labelText: 'العدد',  
-      hintText: 'الوزن الكلي',
+      hintText: 'سعر الوحدة',
     )
     ),
-///****************************************/
-               TextFormField(
-        controller: myController5,
-                   textAlign: TextAlign.center,
-        keyboardType: TextInputType.number,
-    decoration: const InputDecoration(
-    border: UnderlineInputBorder(),
-      hintText: 'سعر الكلغ ',
-    )
-    ),
-///****************************************/
+               /****************************************/
+          
      TextFormField(
-         controller: myController6,
+         controller: myController8,
          textAlign: TextAlign.center,
          keyboardType: TextInputType.number,
          decoration: const InputDecoration(
@@ -199,43 +244,40 @@ class _MyCustomFormStat extends State<MyCustomFor> {
            hintText: 'دفع',
          )
      ),
-///****************************************/
-///**************** /row ************************/
-       Row(
 
+     ///**************************************** /row ********************************************************************************/
+            
+       Row(
         children: <Widget>[
- ///**************** /Expanded ************************/
-          Expanded (
-            flex:1,
-            child :
- ///**************** /Button ************************/
-            MaterialButton(
+
+  ///************************************************** /Button ************************/
+   
+   MaterialButton(
 
         onPressed:()
               async {
- double cost = double.parse(myController4.text)*double.parse(myController5.text);
+ double costAllAlter = double.parse(myController4.text)*double.parse(myController5.text);
 
 
-               
-       String sql= "INSERT INTO sales(nom,date,nbr,poid,onekg,some,vers) VALUES ('${myController1.text}','${myController2.text}','${myController3.text}','${myController4.text}','${myController5.text}','$cost','${myController6.text}')";
 
-                print('sql befor =  $sql'
+          
+       String sql= "INSERT INTO checkenaltar(breeder,nomaltar,date,nbr,unityprice,some,vers) VALUES ('${myController1.text}','${myController2.text}','${myController3.text}','${myController4.text}','${myController5.text}','$costAllAlter','${myController8.text}')";
+
+                print('insert sql  befor ======  $sql'
                 );
      int response = await sqlDb.insertData(sql);
-                print('sql after  =  $sql'
+                print('response  =======  $response'
                 );
 
-       print('myController after =  $response${myController1.text}${myController2.text}${myController3.text}${myController4.text}${myController5.text}'
-       );
+       print('myController after =  $response ${myController1.text} ${myController2.text}  ${myController3.text}  ${myController4.text}  ${myController5.text}' );
 
 
 
         showDialog( context: context,
                     builder: (context) {
                        return AlertDialog(
-                       // Retrieve the text that user has entered by using the
-                       // TextEditingController.
-                        content: Text("  sale =   $sql"),
+                      
+                        content: Text("  checkenaltar =   $sql"),
                                          );
                                      },
                              );
@@ -244,28 +286,25 @@ class _MyCustomFormStat extends State<MyCustomFor> {
                  height: 30,
                  textColor:const Color(0xFFFF6F00),
 
-               child: const Text('حساب وحفظ',textAlign: TextAlign.center,),
-                 //shape: ,
+                                                    child: const Text('حساب وحفظ'),
+               
 
-            ),
-          ),
+               ),
 
-///****************** /VerticalDivider **********************/
+          ///****************** /VerticalDivider **********************/
           const VerticalDivider(
            // color: Colors.black,
             thickness: 400,
           ),
-///**************** /Expanded ************************/
-          Expanded (
-            flex:2,
-            child :
-///**************** /MaterialButton ************************/
-            MaterialButton(
+          ///****************** VerticalDivider/ **********************/
+          
+          /**************** /Button ************************/
+          MaterialButton(
 
             onPressed:()
             async {
 
-              String sql= "SELECT * from 'sales'";
+              String sql= "SELECT * from 'checkenaltar'";
 
              List<Map> response = await sqlDb.readData(sql);
 
@@ -276,87 +315,42 @@ class _MyCustomFormStat extends State<MyCustomFor> {
                   return AlertDialog(
                     // Retrieve the text that user has entered by using the
                     // TextEditingController.
-                    content: Text("  sale =   $response"),
+                    content: Text("  checkenaltar =   $response"),
                   );
                 },
               );
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) =>   const ListSales()),
+                MaterialPageRoute(builder: (context) =>   const Mylistcheckenaltar()),
               );
             },
             color:const Color(0xFFB9F6CA),
             height: 30,
             textColor:const Color(0xFFFF6F00),
 
-            child: const Text('عرض جميع المبيعات',textAlign: TextAlign.center,),
+            child: const Text(' عرض جميع المذبوحات'),
             //shape: ,
 
-            ),
           ),
-///******************VerticalDivider**********************/
-          const VerticalDivider(
-            // color: Colors.black,
-            thickness: 400,
-          ),
-///**************** /Expanded ************************/
-            Expanded (
-              flex:2,
-              child :
-///**************** /MaterialButton ************************/
-              MaterialButton(
+       
+         ///*********** /Button ************************/
 
-            onPressed:()
-            async {
-
-              String sql= "SELECT * from 'sales' where date =${myController2.text}";
-
-              List<Map> response = await sqlDb.readData(sql);
-
-              print('data $response');
-
-              showDialog( context: context,
-                builder: (context) {
-                  return AlertDialog(
-                    // Retrieve the text that user has entered by using the
-                    // TextEditingController.
-                    content: Text("  sale =   $response"),
-                  );
-                },
-              );
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) =>   const ListSalesDate()),
-              );
-            },
-            color:const Color(0xFFB9F6CA),
-            height: 30,
-            textColor:const Color(0xFFFF6F00),
-
-            child: const Text('عرض المبيعات حسب التاريخ',textAlign: TextAlign.center,),
-            //shape: ,
-
-              ),
-            ),
-          /****************** button/ **********************/
-
-
-          /****************************************/
+         
         ],
       ) ,
-  
+      /****************  row/ ************************/
 
-///**************** /row ************************/
+     ///**************** /row ************************/
                Row(
                  children: <Widget>[
 
-///**************** /MaterialButton ************************/
+                   /**************** /Button ************************/
                    MaterialButton(
 
                      onPressed:()
                      async {
 
-                       String sql= "DELETE from 'sales' WHERE id = ${myController7.text}";
+                       String sql= "DELETE from 'checkenaltar' WHERE id = ${myController7.text}";
 
                        List<Map> response = await sqlDb.deleteData(sql);
 
@@ -367,7 +361,7 @@ class _MyCustomFormStat extends State<MyCustomFor> {
                            return AlertDialog(
                              // Retrieve the text that user has entered by using the
                              // TextEditingController.
-                             content: Text("  sale =   $response"),
+                             content: Text("  purchses =   $response"),
                            );
                          },
                        );
@@ -381,12 +375,10 @@ class _MyCustomFormStat extends State<MyCustomFor> {
 
                    ),
 
-///****************** SizedBox **********************/
+    ///****************** button/ **********************/
                     SizedBox(
                      width: 100.0,
-                     child:
-///****************** TextFormField **********************/
-                     TextFormField(
+                     child:TextFormField(
                        controller: myController7,
                        keyboardType: TextInputType.number,
                        decoration: const InputDecoration(
@@ -397,14 +389,14 @@ class _MyCustomFormStat extends State<MyCustomFor> {
                      ),
                    ),
 
-/**************** /MaterialButton ************************/
+
+                   /**************** /Button ************************/
                    MaterialButton(
 
                      onPressed:()
                      async {
-                       double cost = double.parse(myController4.text)*double.parse(myController5.text);
-                       String sale ="${myController1.text} I ${myController2.text} I ${myController3.text} I ${myController4.text} I ${myController5.text} I $cost";
-                       String sql= "UPDATE 'sales' SET 'txt' = '$sale' WHERE id = ${myController7.text}";
+                       double costpusrch = double.parse(myController4.text)*(double.parse(myController5.text)-double.parse(myController6.text));
+                          String sql= "UPDATE 'purchses' SET 'nom' = '${myController1.text}','date' ='${myController2.text}','nbr' ='${myController3.text}','onekg' ='${myController4.text}','poid' ='${myController5.text}','some' ='$costpusrch' WHERE id = ${myController7.text}";
 
                        int response = await sqlDb.updateData(sql);
 
@@ -434,11 +426,11 @@ class _MyCustomFormStat extends State<MyCustomFor> {
                    ),
 
 
-                   /****************************************/
+                  ///********************Button/********************/
                  ],
                ) ,
-     /******************************************************************/
-
+     ///****************************row/**************************************/
+///********************/Button********************/
      ElevatedButton(
        child:  const Text('الرجوع الى الصفحة الرئيسية'),
        onPressed: () {
@@ -449,16 +441,26 @@ class _MyCustomFormStat extends State<MyCustomFor> {
        },
      ),
 
+///********************Button/********************/
 
-     /******************************************************************/
 
 
 
    ],
     ) ,
  ) ,
+  /*
+   ) ,
 
-   );
+    ) ,
+    */
+
+
+
+
+
+
+                    );
 
   }
 
