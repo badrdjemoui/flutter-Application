@@ -101,7 +101,7 @@ class _MyCustomForState extends State<MyCustomForm> {
 
     Navigator.push(
     context,
-    MaterialPageRoute(builder: (context) =>  const Sales()),
+    MaterialPageRoute(builder: (context) =>   Sales()),
     );
 
                 },

@@ -212,14 +212,10 @@ class _MyCustomFormStatPur extends State<MyCustomForPur> {
           
        String sql= "INSERT INTO purchases(nom,date,nbr,onekg,poid,some,vers) VALUES ('${myController1.text}','${myController2.text}','${myController3.text}','${myController4.text}','${myController5.text}','$costpurch','${myController8.text}')";
 
-                print('sql puchases befor =  $sql'
-                );
-     int response = await sqlDb.insertData(sql);
-                print('sql puchases after  =  $sql'
-                );
+ 
+              
 
-       print('myController after =  $response${myController1.text}${myController2.text}${myController3.text}${myController4.text}${myController5.text}'
-       );
+     
 
 
 
@@ -256,7 +252,7 @@ class _MyCustomFormStatPur extends State<MyCustomForPur> {
 
              List<Map> response = await sqlDb.readData(sql);
 
-              print('data $response');
+          
 
               showDialog( context: context,
                 builder: (context) {
@@ -301,7 +297,7 @@ class _MyCustomFormStatPur extends State<MyCustomForPur> {
 
                        List<Map> response = await sqlDb.deleteData(sql);
 
-                       print('data $response');
+                  
 
                        showDialog( context: context,
                          builder: (context) {
@@ -347,7 +343,7 @@ class _MyCustomFormStatPur extends State<MyCustomForPur> {
 
                        int response = await sqlDb.updateData(sql);
 
-                       print('data $response');
+                   
 
                        showDialog( context: context,
                          builder: (context) {

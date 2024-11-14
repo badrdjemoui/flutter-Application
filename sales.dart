@@ -1,12 +1,17 @@
 import 'package:chicken/listsalesdate.dart';
+import 'package:chicken/salespdf.dart';
 import 'package:flutter/material.dart';
 import 'sqldb.dart';
 import 'main.dart';
 import 'listsales.dart';
 
 
+
+
+
+
 class Sales extends StatelessWidget {
-  const Sales({super.key});
+   Sales({super.key});
 
 
 
@@ -16,15 +21,15 @@ class Sales extends StatelessWidget {
       title: 'Retrieve Text Input',
       theme: ThemeData(primarySwatch: Colors.green),
       debugShowCheckedModeBanner: false,
-      home: const MyCustomFor(),
+      home:  MyCustomFor(),
     );
   }
 }
 
 // Define a custom Form widget.
 class MyCustomFor extends StatefulWidget {
-  const MyCustomFor({super.key});
-
+   MyCustomFor({super.key});
+final PdfGenerator pdfGenerator = PdfGenerator();
   @override
   State<MyCustomFor> createState() => _MyCustomFormStat();
 }
@@ -44,6 +49,8 @@ class _MyCustomFormStat extends State<MyCustomFor> {
 
 
   SqlDb sqlDb =  SqlDb();
+  
+ 
   @override
   void dispose() {
     // Clean up the controller when the widget is disposed.
@@ -119,7 +126,7 @@ class _MyCustomFormStat extends State<MyCustomFor> {
                    textAlign: TextAlign.center,
                    decoration: const InputDecoration(
                      hintText: 'اسم الزبون', 
-                     labelText: 'اسم الزبون',               
+                  //   labelText: 'اسم الزبون',               
                    )
                ),
 
@@ -163,7 +170,7 @@ class _MyCustomFormStat extends State<MyCustomFor> {
    keyboardType: TextInputType.number,
          decoration: const InputDecoration(
            border: UnderlineInputBorder(),
-           labelText: 'العدد',  
+          // labelText: 'العدد',  
            hintText: ' العدد ',
 
            )
@@ -175,7 +182,7 @@ class _MyCustomFormStat extends State<MyCustomFor> {
         keyboardType: TextInputType.number,
     decoration: const InputDecoration(
     border: UnderlineInputBorder(),
-    labelText: 'العدد',  
+   // labelText: 'الوزن الكلي',  
       hintText: 'الوزن الكلي',
     )
     ),
@@ -219,15 +226,9 @@ class _MyCustomFormStat extends State<MyCustomFor> {
                
        String sql= "INSERT INTO sales(nom,date,nbr,poid,onekg,some,vers) VALUES ('${myController1.text}','${myController2.text}','${myController3.text}','${myController4.text}','${myController5.text}','$cost','${myController6.text}')";
 
-                print('sql befor =  $sql'
-                );
-     int response = await sqlDb.insertData(sql);
-                print('sql after  =  $sql'
-                );
-
-       print('myController after =  $response${myController1.text}${myController2.text}${myController3.text}${myController4.text}${myController5.text}'
-       );
-
+ 
+              
+     
 
 
         showDialog( context: context,
@@ -269,7 +270,7 @@ class _MyCustomFormStat extends State<MyCustomFor> {
 
              List<Map> response = await sqlDb.readData(sql);
 
-              print('data $response');
+      
 
               showDialog( context: context,
                 builder: (context) {
@@ -313,7 +314,7 @@ class _MyCustomFormStat extends State<MyCustomFor> {
 
               List<Map> response = await sqlDb.readData(sql);
 
-              print('data $response');
+          
 
               showDialog( context: context,
                 builder: (context) {
@@ -360,7 +361,7 @@ class _MyCustomFormStat extends State<MyCustomFor> {
 
                        List<Map> response = await sqlDb.deleteData(sql);
 
-                       print('data $response');
+                    
 
                        showDialog( context: context,
                          builder: (context) {
@@ -408,7 +409,7 @@ class _MyCustomFormStat extends State<MyCustomFor> {
 
                        int response = await sqlDb.updateData(sql);
 
-                       print('data $response');
+                  
 
                        showDialog( context: context,
                          builder: (context) {
@@ -451,6 +452,26 @@ class _MyCustomFormStat extends State<MyCustomFor> {
 
 
      /******************************************************************/
+
+       /******************************************************************/
+
+  
+     
+      ElevatedButton(
+          onPressed: () async {
+           PdfGenerator pdfGenerator = PdfGenerator();
+            await pdfGenerator.writeOnPdf();
+            await pdfGenerator.savePdf();
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text(' طباعة المبيعات علي شكل ملف pdf')),
+            );
+          },
+          child: Text('Create PDF'),
+        ),
+    
+
+     /******************************************************************/
+
 
 
 

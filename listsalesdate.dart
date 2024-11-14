@@ -66,8 +66,8 @@ showAlertDialog(BuildContext context) {
 
   // set up the AlertDialog
   AlertDialog alert = AlertDialog(
-    title: Text("Delete data base"),
-    content: Text("are you sure."),
+    title: const Text("Delete data base"),
+    content: const Text("are you sure."),
     actions: [
       okButton,
     ],

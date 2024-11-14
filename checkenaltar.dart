@@ -263,14 +263,11 @@ class _MyCustomCheckenaltar extends State<MyCustomCheckenaltar> {
           
        String sql= "INSERT INTO checkenaltar(breeder,nomaltar,date,nbr,unityprice,some,vers) VALUES ('${myController1.text}','${myController2.text}','${myController3.text}','${myController4.text}','${myController5.text}','$costAllAlter','${myController8.text}')";
 
-                print('insert sql  befor ======  $sql'
-                );
-     int response = await sqlDb.insertData(sql);
-                print('response  =======  $response'
-                );
+              
+     
+              
 
-       print('myController after =  $response ${myController1.text} ${myController2.text}  ${myController3.text}  ${myController4.text}  ${myController5.text}' );
-
+      
 
 
         showDialog( context: context,
@@ -308,7 +305,7 @@ class _MyCustomCheckenaltar extends State<MyCustomCheckenaltar> {
 
              List<Map> response = await sqlDb.readData(sql);
 
-              print('data $response');
+            
 
               showDialog( context: context,
                 builder: (context) {
@@ -354,7 +351,7 @@ class _MyCustomCheckenaltar extends State<MyCustomCheckenaltar> {
 
                        List<Map> response = await sqlDb.deleteData(sql);
 
-                       print('data $response');
+                     
 
                        showDialog( context: context,
                          builder: (context) {
@@ -400,13 +397,11 @@ class _MyCustomCheckenaltar extends State<MyCustomCheckenaltar> {
 
                        int response = await sqlDb.updateData(sql);
 
-                       print('data $response');
+                       
 
                        showDialog( context: context,
                          builder: (context) {
-                           return AlertDialog(
-                             // Retrieve the text that user has entered by using the
-                             // TextEditingController.
+                           return AlertDialog(    
                              content: Text("  sql =   $sql response $response"),
                            );
                          },

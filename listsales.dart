@@ -83,11 +83,11 @@ class _MylistpageState extends State<Mylistpage> {
                       itemCount: snapshot.data!.length,
                      // shrinkWrap: true,
                       itemBuilder: (context,i){
-                        print(snapshot.data![i]['vers']);
+                   
                           d=d+double.parse(snapshot.data![i]['vers'].toString());
 
 
-                        print(d.toString());
+                 
                         return Card(
                           child: ListTile(
                            title:Text("${snapshot.data![i]['id']}  =  ${snapshot.data![i]['nom']}  ${snapshot.data![i]['date']}  ${snapshot.data![i]['nbr']}  ${snapshot.data![i]['poid']}  ${snapshot.data![i]['onekg']}  ${snapshot.data![i]['some']}  ${snapshot.data![i]['vers']}",textDirection: TextDirection.rtl) ,
