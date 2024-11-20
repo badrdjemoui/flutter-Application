@@ -21,15 +21,15 @@ class Sales extends StatelessWidget {
       title: 'Retrieve Text Input',
       theme: ThemeData(primarySwatch: Colors.green),
       debugShowCheckedModeBanner: false,
-      home:  MyCustomFor(),
+      home:  const MyCustomFor(),
     );
   }
 }
 
 // Define a custom Form widget.
 class MyCustomFor extends StatefulWidget {
-   MyCustomFor({super.key});
-final PdfGenerator pdfGenerator = PdfGenerator();
+   const MyCustomFor({super.key});
+
   @override
   State<MyCustomFor> createState() => _MyCustomFormStat();
 }
@@ -92,7 +92,7 @@ class _MyCustomFormStat extends State<MyCustomFor> {
   ];
 
 
-
+PdfGenerator pdfGenerator = PdfGenerator();
   @override
   Widget build(BuildContext context) {
 
@@ -459,7 +459,7 @@ class _MyCustomFormStat extends State<MyCustomFor> {
      
       ElevatedButton(
           onPressed: () async {
-           PdfGenerator pdfGenerator = PdfGenerator();
+       
             await pdfGenerator.writeOnPdf();
             await pdfGenerator.savePdf();
             ScaffoldMessenger.of(context).showSnackBar(
